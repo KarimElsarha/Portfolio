@@ -861,6 +861,40 @@ document.querySelectorAll('.cs-tab').forEach(tab=>{
 });
 
 applyLang('en');
+
+// Visitor & download notifications (push via ntfy.sh — subscribe to NTFY_TOPIC in the ntfy app)
+const NTFY_TOPIC = 'karim-portfolio-745b91b37462';
+function notify(title, tags, extra){
+  const info = [
+    extra,
+    'Page: ' + location.href,
+    'Referrer: ' + (document.referrer || 'Direct'),
+    'Time zone: ' + (Intl.DateTimeFormat().resolvedOptions().timeZone || '-'),
+    'Language: ' + navigator.language,
+    'Device: ' + navigator.userAgent
+  ].filter(Boolean).join('\n');
+  try{
+    fetch('https://ntfy.sh/', {
+      method:'POST',
+      keepalive:true,
+      body: JSON.stringify({topic:NTFY_TOPIC, title, message:info, tags})
+    }).catch(()=>{});
+  }catch(e){}
+}
+
+try{
+  if(!sessionStorage.getItem('visitNotified')){
+    sessionStorage.setItem('visitNotified', '1');
+    notify('New visitor on your portfolio', ['eyes']);
+  }
+}catch(e){ notify('New visitor on your portfolio', ['eyes']); }
+
+document.querySelectorAll('a[download]').forEach(a=>{
+  a.addEventListener('click', ()=>{
+    const isCV = a.getAttribute('href') === 'cv.pdf';
+    notify(isCV ? 'CV downloaded' : 'Portfolio downloaded', ['inbox_tray'], 'File: ' + a.getAttribute('href'));
+  });
+});
 </script>
 
 </body>
