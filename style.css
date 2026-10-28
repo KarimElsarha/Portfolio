@@ -143,7 +143,13 @@
   .hero p.tagline{
     margin-top:22px; font-size:16px; color:#B9C3D0; max-width:56ch; line-height:1.7;
   }
-  .hero .ctas{ margin-top:34px; display:flex; gap:14px; flex-wrap:wrap; }
+  .hero .ctas{ margin-top:28px; display:flex; gap:14px; flex-wrap:wrap; }
+  .hero-facts{
+    list-style:none; margin-top:18px; padding:0; display:flex; flex-wrap:wrap; gap:6px 18px;
+    font-size:14px; color:#DCE3EA;
+  }
+  .hero-facts li{ display:flex; align-items:center; gap:8px; }
+  .hero-facts li::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--gold); flex:none; }
   .hero-photo{ position:relative; }
   .hero-photo .frame{
     position:relative; border-radius:16px; overflow:hidden;
@@ -159,6 +165,7 @@
     .hero h1{ font-size:38px; }
     .hero p.tagline{ margin-inline:auto; }
     .hero .ctas{ justify-content:center; }
+    .hero-facts{ justify-content:center; }
     .hero-photo{ max-width:340px; margin-inline:auto; order:-1; }
   }
 
@@ -305,6 +312,12 @@
   .cert-item .dot{ width:8px; height:8px; border-radius:50%; background:var(--gold); margin-top:6px; flex:none; }
   .cert-item .t{ font-weight:700; font-size:13.5px; }
   .cert-item .o{ font-size:12px; color:var(--text-muted); }
+  .cert-item.featured{
+    background:#FBF6E4; border:1px solid var(--gold); border-radius:10px; padding:14px 16px; margin-bottom:18px;
+  }
+  .cert-item.featured .dot{ width:10px; height:10px; margin-top:7px; }
+  .cert-item.featured .t{ font-size:16px; color:var(--navy); }
+  .cert-item.featured .o{ font-size:12.5px; font-weight:600; color:var(--navy-lighter); }
   @media (max-width:800px){ .edu-grid{ grid-template-columns:1fr; } }
 
   /* ---------- Training spotlight ---------- */
