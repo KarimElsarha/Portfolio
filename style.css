@@ -4,6 +4,7 @@
     --navy-lighter:#1F4785;
     --slate:#4A5568;
     --gold:#D4AF37;
+    --gold-text:#7A5C0F; /* gold for text on light backgrounds (WCAG AA) */
     --bg:#F6F7F9;
     --white:#FFFFFF;
     --text-dark:#1A2433;
@@ -29,17 +30,49 @@
   a{color:inherit; text-decoration:none;}
   ul{list-style:none;}
   button{font-family:inherit; cursor:pointer;}
-  .wrap{max-width:var(--maxw); margin:0 auto; padding-inline:28px;}
-  section{scroll-margin-top:76px;}
+  .wrap{
+    max-width:var(--maxw); margin:0 auto;
+    padding-left:max(28px, env(safe-area-inset-left)); padding-right:max(28px, env(safe-area-inset-right));
+  }
+  section{scroll-margin-top:80px;}
+  body.menu-open{ overflow:hidden; }
 
   /* ---------- Reduced motion ---------- */
   @media (prefers-reduced-motion: reduce){
     *{animation:none !important; transition:none !important;}
+    html{ scroll-behavior:auto; }
+    #progress{ display:none; }
+  }
+
+  /* ---------- Motion (only runs when motion.js adds .js-motion) ---------- */
+  #progress{
+    position:fixed; top:0; left:0; right:0; height:3px; z-index:101; pointer-events:none;
+    background:var(--gold); transform:scaleX(0); transform-origin:left center;
+  }
+  html[dir="rtl"] #progress{ transform-origin:right center; }
+  .js-motion .reveal{ opacity:0; }
+  .js-motion .reveal.in{ opacity:1; animation:rise .5s cubic-bezier(.2,.7,.3,1) backwards; }
+  @keyframes rise{ from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:none; } }
+  @keyframes fadein{ from{ opacity:0; } to{ opacity:1; } }
+
+  /* Hover lift on cards; press feedback for touch */
+  .skill-card, .edu-card, .train-card, .spot, .cs-col, .tl-stats .chip{
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  @media (hover:hover){
+    .skill-card:hover, .edu-card:hover, .train-card:hover, .spot:hover, .cs-col:hover, .tl-stats .chip:hover{
+      transform:translateY(-3px); box-shadow:0 12px 26px rgba(15,44,89,.14);
+    }
+    .btn:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(0,0,0,.18); }
+  }
+  @media (hover:none){
+    .skill-card:active, .edu-card:active, .train-card:active, .spot:active, .cs-col:active,
+    .tl-stats .chip:active, .contact-item:active{ transform:scale(.98); }
   }
 
   /* ---------- Nav ---------- */
   header{
-    position:fixed; inset-inline:0; top:0; z-index:100;
+    position:fixed; inset-inline:0; top:0; z-index:100; padding-top:env(safe-area-inset-top);
     background:rgba(15,44,89,0.97);
     backdrop-filter:blur(6px);
     transition:box-shadow .25s ease, padding-block .25s ease;
@@ -52,7 +85,7 @@
   header.scrolled .navbar{ padding-block:12px; }
   .brand{
     display:flex; align-items:center; gap:12px;
-    color:var(--white); font-weight:700; font-size:17px; letter-spacing:.2px;
+    color:var(--white); font-weight:700; font-size:17px; letter-spacing:.2px; white-space:nowrap;
   }
   .brand .mark{
     width:36px; height:36px; border-radius:50%;
@@ -63,13 +96,13 @@
   nav.links{ display:flex; align-items:center; gap:2px; }
   nav.links button.navlink{
     background:none; border:none; color:#C3CAD4; font-size:14.5px; font-weight:500;
-    padding:10px 14px; border-radius:6px; position:relative;
+    padding:10px 11px; border-radius:6px; position:relative; white-space:nowrap;
     transition:color .18s ease;
   }
   nav.links button.navlink:hover{ color:var(--white); }
   nav.links button.navlink.active{ color:var(--white); }
   nav.links button.navlink.active::after{
-    content:""; position:absolute; left:14px; right:14px; bottom:4px; height:2px;
+    content:""; position:absolute; left:11px; right:11px; bottom:4px; height:2px;
     background:var(--gold); border-radius:2px;
   }
   .navctas{ display:flex; align-items:center; gap:10px; }
@@ -81,16 +114,24 @@
   .lang-btn:hover{ background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.6); }
   .burger{
     display:none; background:none; border:none; color:var(--white); padding:6px;
+    min-width:44px; min-height:44px; align-items:center; justify-content:center; border-radius:8px;
   }
   .mobile-panel{
     display:none; flex-direction:column; gap:2px; background:var(--navy-light);
     padding:10px 28px 18px;
   }
-  .mobile-panel.open{ display:flex; }
-  .mobile-panel button.navlink{
-    text-align:start; background:none; border:none; color:#DCE3EA; font-size:15px;
-    padding:12px 4px; border-bottom:1px solid rgba(255,255,255,.08);
+  .mobile-panel.open{
+    display:flex; height:calc(100vh - 68px); height:calc(100dvh - 68px - env(safe-area-inset-top));
+    overflow-y:auto; overscroll-behavior:contain;
+    padding-bottom:calc(24px + env(safe-area-inset-bottom));
+    animation:fadein .2s ease;
   }
+  .mobile-panel button.navlink{
+    text-align:start; background:none; border:none; color:#DCE3EA; font-size:16px;
+    min-height:48px; padding:12px 4px; border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .mobile-panel .cv-download{ margin-top:auto; margin-inline-start:0; min-height:48px; justify-content:center; }
+  .mobile-panel .lang-btn{ min-height:44px; }
   .nav-download{
     display:inline-flex; align-items:center; justify-content:center; white-space:nowrap;
     padding:8px 11px; border-radius:7px; font-size:11.5px; font-weight:700;
@@ -99,11 +140,11 @@
   .nav-download:hover{ transform:translateY(-1px); }
   .portfolio-download{ color:var(--navy); background:var(--gold); }
   .portfolio-download:hover{ background:#e2c158; }
-  .cv-download{ color:var(--white); border:1px solid rgba(255,255,255,.55); }
-  .cv-download:hover{ background:rgba(255,255,255,.1); }
-  .mobile-panel .nav-download{ width:100%; justify-content:flex-start; margin-top:8px; padding:11px 12px; font-size:14px; }
+  .cv-download{ color:var(--navy); background:var(--gold); margin-inline-start:8px; }
+  .cv-download:hover{ background:#e2c158; }
+  .mobile-panel .nav-download{ width:100%; justify-content:flex-start; margin-top:8px; padding:11px 12px; font-size:15px; }
 
-  @media (max-width: 880px){
+  @media (max-width: 1080px){
     nav.links, .navctas .lang-btn.desktop{ display:none; }
     .burger{ display:inline-flex; }
   }
@@ -130,7 +171,9 @@
   .hero{
     background:linear-gradient(180deg, var(--navy) 0%, var(--navy) 78%, var(--navy-light) 100%);
     padding-block:150px 90px; position:relative; overflow:hidden;
+    min-height:100vh; min-height:100dvh; display:flex; align-items:center;
   }
+  .hero .wrap{ width:100%; }
   .hero .wrap{
     display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;
   }
@@ -143,7 +186,13 @@
   .hero p.tagline{
     margin-top:22px; font-size:16px; color:#B9C3D0; max-width:56ch; line-height:1.7;
   }
-  .hero .ctas{ margin-top:34px; display:flex; gap:14px; flex-wrap:wrap; }
+  .hero .ctas{ margin-top:28px; display:flex; gap:14px; flex-wrap:wrap; }
+  .hero-facts{
+    list-style:none; margin-top:18px; padding:0; display:flex; flex-wrap:wrap; gap:6px 18px;
+    font-size:14px; color:#DCE3EA;
+  }
+  .hero-facts li{ display:flex; align-items:center; gap:8px; }
+  .hero-facts li::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--gold); flex:none; }
   .hero-photo{ position:relative; }
   .hero-photo .frame{
     position:relative; border-radius:16px; overflow:hidden;
@@ -159,6 +208,7 @@
     .hero h1{ font-size:38px; }
     .hero p.tagline{ margin-inline:auto; }
     .hero .ctas{ justify-content:center; }
+    .hero-facts{ justify-content:center; }
     .hero-photo{ max-width:340px; margin-inline:auto; order:-1; }
   }
 
@@ -230,14 +280,14 @@
   .cs-tab{
     display:flex; align-items:center; gap:10px; padding:12px 18px; border-radius:10px;
     background:var(--white); border:1.5px solid var(--border); color:var(--text-muted); font-weight:600; font-size:14px;
-    transition:border-color .18s ease, color .18s ease, background .18s ease;
+    min-height:44px; transition:border-color .18s ease, color .18s ease, background .18s ease;
   }
   .cs-tab svg{ width:19px; height:19px; }
   .cs-tab.active{ border-color:var(--navy); color:var(--navy); background:#EEF2F8; }
   .cs-panel{ display:none; }
-  .cs-panel.active{ display:block; }
+  .cs-panel.active{ display:block; animation:fadein .2s ease; }
   .cs-badge{
-    display:inline-block; font-size:11.5px; font-weight:700; color:var(--gold);
+    display:inline-block; font-size:11.5px; font-weight:700; color:var(--gold-text);
     border:1px solid var(--gold); padding:5px 12px; border-radius:14px; margin-bottom:14px;
   }
   .cs-title{ font-size:24px; font-weight:800; margin-bottom:20px; }
@@ -305,6 +355,12 @@
   .cert-item .dot{ width:8px; height:8px; border-radius:50%; background:var(--gold); margin-top:6px; flex:none; }
   .cert-item .t{ font-weight:700; font-size:13.5px; }
   .cert-item .o{ font-size:12px; color:var(--text-muted); }
+  .cert-item.featured{
+    background:#FBF6E4; border:1px solid var(--gold); border-radius:10px; padding:14px 16px; margin-bottom:18px;
+  }
+  .cert-item.featured .dot{ width:10px; height:10px; margin-top:7px; }
+  .cert-item.featured .t{ font-size:16px; color:var(--navy); }
+  .cert-item.featured .o{ font-size:12.5px; font-weight:600; color:var(--navy-lighter); }
   @media (max-width:800px){ .edu-grid{ grid-template-columns:1fr; } }
 
   /* ---------- Training spotlight ---------- */
@@ -345,9 +401,17 @@
   .contact-item .val{ color:var(--white); font-size:12.5px; word-break:break-word; }
   .availability{
     display:inline-flex; align-items:center; gap:10px; margin-top:40px; padding:12px 24px;
-    border:1px solid var(--gold); border-radius:24px; color:var(--gold); font-weight:700; font-size:13.5px;
+    border:1px solid var(--gold); border-radius:24px; color:var(--gold-text); font-weight:700; font-size:13.5px;
   }
-  @media (max-width:700px){ .contact-grid{ grid-template-columns:repeat(2,1fr); } }
+  .contact-downloads{ display:flex; flex-wrap:wrap; justify-content:center; gap:14px; margin-top:28px; }
+  @media (max-width:700px){
+    .contact-grid{ grid-template-columns:1fr; gap:12px; margin-top:32px; }
+    .contact-item{ display:flex; align-items:center; gap:16px; padding:14px 18px; text-align:start; }
+    .contact-item .icon{ margin:0; width:44px; height:44px; flex:none; }
+    .contact-item .val{ font-size:14px; }
+    .contact-item .val{ text-align:left; }
+    html[dir="rtl"] .contact-item .val{ text-align:right; }
+  }
 
   footer{ background:#0A2044; padding-block:28px; text-align:center; color:#8FA0B8; font-size:12.5px; }
 
@@ -364,3 +428,18 @@
 
   /* focus visibility */
   a:focus-visible, button:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+
+  /* ---------- Print (also used to build Karim-Elsarha-Portfolio.pdf) ---------- */
+  @media print{
+    @page{ margin:0; }
+    *{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    header, #progress, #toTop, .ctas, .cs-tabs, .contact-downloads{ display:none !important; }
+    .hero{ min-height:0; padding-block:60px; }
+    section{ break-before:page; }
+    section.hero, #about, #education, #contact{ break-before:auto; }
+    #skills{ min-height:100vh; }
+    section.light, section.tint, section.dark{ padding-block:56px; }
+    .cs-panel{ display:block !important; margin-bottom:36px; }
+    .reveal{ opacity:1 !important; animation:none !important; }
+    .tl-item, .cs-panel, .skill-card, .edu-card, .spot, .train-card, .proj-row, .cs-col{ break-inside:avoid; }
+  }
