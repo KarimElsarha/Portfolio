@@ -52,7 +52,7 @@
   header.scrolled .navbar{ padding-block:12px; }
   .brand{
     display:flex; align-items:center; gap:12px;
-    color:var(--white); font-weight:700; font-size:17px; letter-spacing:.2px;
+    color:var(--white); font-weight:700; font-size:17px; letter-spacing:.2px; white-space:nowrap;
   }
   .brand .mark{
     width:36px; height:36px; border-radius:50%;
@@ -63,13 +63,13 @@
   nav.links{ display:flex; align-items:center; gap:2px; }
   nav.links button.navlink{
     background:none; border:none; color:#C3CAD4; font-size:14.5px; font-weight:500;
-    padding:10px 14px; border-radius:6px; position:relative;
+    padding:10px 11px; border-radius:6px; position:relative; white-space:nowrap;
     transition:color .18s ease;
   }
   nav.links button.navlink:hover{ color:var(--white); }
   nav.links button.navlink.active{ color:var(--white); }
   nav.links button.navlink.active::after{
-    content:""; position:absolute; left:14px; right:14px; bottom:4px; height:2px;
+    content:""; position:absolute; left:11px; right:11px; bottom:4px; height:2px;
     background:var(--gold); border-radius:2px;
   }
   .navctas{ display:flex; align-items:center; gap:10px; }
@@ -99,11 +99,11 @@
   .nav-download:hover{ transform:translateY(-1px); }
   .portfolio-download{ color:var(--navy); background:var(--gold); }
   .portfolio-download:hover{ background:#e2c158; }
-  .cv-download{ color:var(--white); border:1px solid rgba(255,255,255,.55); }
-  .cv-download:hover{ background:rgba(255,255,255,.1); }
+  .cv-download{ color:var(--navy); background:var(--gold); margin-inline-start:8px; }
+  .cv-download:hover{ background:#e2c158; }
   .mobile-panel .nav-download{ width:100%; justify-content:flex-start; margin-top:8px; padding:11px 12px; font-size:14px; }
 
-  @media (max-width: 880px){
+  @media (max-width: 1080px){
     nav.links, .navctas .lang-btn.desktop{ display:none; }
     .burger{ display:inline-flex; }
   }
@@ -360,6 +360,7 @@
     display:inline-flex; align-items:center; gap:10px; margin-top:40px; padding:12px 24px;
     border:1px solid var(--gold); border-radius:24px; color:var(--gold); font-weight:700; font-size:13.5px;
   }
+  .contact-downloads{ display:flex; flex-wrap:wrap; justify-content:center; gap:14px; margin-top:28px; }
   @media (max-width:700px){ .contact-grid{ grid-template-columns:repeat(2,1fr); } }
 
   footer{ background:#0A2044; padding-block:28px; text-align:center; color:#8FA0B8; font-size:12.5px; }

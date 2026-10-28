@@ -49,7 +49,6 @@
       <button class="navlink" data-target="projects" data-i18n="nav.projects">Projects</button>
       <button class="navlink" data-target="education" data-i18n="nav.education">Education</button>
       <button class="navlink" data-target="contact" data-i18n="nav.contact">Contact</button>
-      <a class="nav-download portfolio-download" href="Karim-Elsarha-Portfolio.pdf" download data-i18n="nav.portfolioDownload">Download Portfolio</a>
       <a class="nav-download cv-download" href="cv.pdf" download data-i18n="nav.cvDownload">Download CV</a>
     </nav>
     <div class="navctas">
@@ -66,7 +65,6 @@
     <button class="navlink" data-target="projects" data-i18n="nav.projects">Projects</button>
     <button class="navlink" data-target="education" data-i18n="nav.education">Education</button>
     <button class="navlink" data-target="contact" data-i18n="nav.contact">Contact</button>
-    <a class="nav-download portfolio-download" href="Karim-Elsarha-Portfolio.pdf" download data-i18n="nav.portfolioDownload">Download Portfolio</a>
     <a class="nav-download cv-download" href="cv.pdf" download data-i18n="nav.cvDownload">Download CV</a>
     <button class="lang-btn" id="langBtnMobile" style="margin-top:14px; align-self:flex-start;">العربية</button>
   </div>
@@ -88,7 +86,6 @@
         <button class="btn btn-gold navlink" data-target="cases" data-i18n="hero.cta1">View My Work</button>
         <button class="btn btn-ghost navlink" data-target="contact" data-i18n="hero.cta2">Get in Touch</button>
         <a class="btn btn-download" href="cv.pdf" download data-i18n="hero.cvDownload">Download CV</a>
-        <a class="btn btn-download-outline" href="Karim-Elsarha-Portfolio.pdf" download data-i18n="hero.portfolioDownload">Download Portfolio</a>
       </div>
     </div>
     <div class="hero-photo">
@@ -551,6 +548,11 @@
         <div class="val" data-i18n="contact.loc">New Cairo, Egypt</div>
       </div>
     </div>
+    <div class="availability" data-i18n="contact.avail">Available to join within one month · Open to relocation (KSA/GCC)</div>
+    <div class="contact-downloads">
+      <a class="btn btn-download" href="cv.pdf" download data-i18n="contact.cvDownload">Download CV</a>
+      <a class="btn btn-outline-navy" href="Karim-Elsarha-Portfolio.pdf" download data-i18n="contact.portfolioDownload">Download Portfolio (PDF)</a>
+    </div>
   </div>
 </section>
 
@@ -564,12 +566,12 @@
 const TR = {
   en: {
     "brand":"Karim Elsarha",
-    "nav.home":"Home","nav.about":"About","nav.experience":"Experience","nav.cases":"Case Studies","nav.skills":"Skills","nav.projects":"Projects","nav.education":"Education","nav.contact":"Contact","nav.portfolioDownload":"Download Portfolio","nav.cvDownload":"Download CV",
+    "nav.home":"Home","nav.about":"About","nav.experience":"Experience","nav.cases":"Case Studies","nav.skills":"Skills","nav.projects":"Projects","nav.education":"Education","nav.contact":"Contact","nav.cvDownload":"Download CV",
     "hero.name":"Karim Elsarha",
     "hero.role":"Procurement & Inventory Planning Manager",
     "hero.subrole":"Strategic Supply Chain & Infrastructure Procurement Leader",
     "hero.tagline":"18+ years turning negotiation, compliance, and data into measurable results. I lead procurement, inventory planning, and infrastructure projects across Egypt's port and economic-zone sector.",
-    "hero.cta1":"View My Work","hero.cta2":"Get in Touch","hero.cvDownload":"Download CV","hero.portfolioDownload":"Download Portfolio",
+    "hero.cta1":"View My Work","hero.cta2":"Get in Touch","hero.cvDownload":"Download CV",
     "hero.f1":"Nationality: Egyptian",
     "hero.f2":"Available to join within one month",
     "hero.f3":"Open to relocation (KSA/GCC)",
@@ -689,18 +691,19 @@ const TR = {
     "train.t1.t":"Behavioral Barriers","train.t1.o":"National Center for Training and Leadership (NCTL), Egypt · 2022",
     "train.t2.t":"Anti-Corruption Training","train.t2.o":"National Anti-Corruption Academy, Egypt · 2022",
     "contact.tag":"Contact","contact.title":"Let's Connect","contact.desc":"Open to new opportunities in procurement, supply chain, and inventory leadership, in Egypt or internationally.",
-    "contact.avail":"Available to Join Within One Month of Offer Acceptance",
+    "contact.avail":"Available to join within one month · Open to relocation (KSA/GCC)",
+    "contact.cvDownload":"Download CV","contact.portfolioDownload":"Download Portfolio (PDF)",
     "contact.loc":"New Cairo, Egypt",
     "footer.text":"© <span id=\"yr2\"></span> Karim Elsarha. All rights reserved."
   },
   ar: {
     "brand":"كريم السرحه",
-    "nav.home":"الرئيسية","nav.about":"نبذة عني","nav.experience":"الخبرة المهنية","nav.cases":"دراسات الحالة","nav.skills":"المهارات","nav.projects":"المشاريع","nav.education":"التعليم","nav.contact":"التواصل","nav.portfolioDownload":"تحميل البورتفليو","nav.cvDownload":"تحميل السيرة الذاتية",
+    "nav.home":"الرئيسية","nav.about":"نبذة عني","nav.experience":"الخبرة المهنية","nav.cases":"دراسات الحالة","nav.skills":"المهارات","nav.projects":"المشاريع","nav.education":"التعليم","nav.contact":"التواصل","nav.cvDownload":"تحميل السيرة الذاتية",
     "hero.name":"كريم السرحه",
     "hero.role":"مدير المشتريات وتخطيط المخزون",
     "hero.subrole":"قائد استراتيجي لسلاسل الإمداد ومشتريات البنية التحتية",
     "hero.tagline":"أكثر من 18 عامًا حوّلت خلالها التفاوض والالتزام والتحليل إلى نتائج ملموسة. أقود المشتريات وتخطيط المخزون ومشاريع البنية التحتية في قطاع الموانئ والمناطق الاقتصادية في مصر.",
-    "hero.cta1":"شاهد أعمالي","hero.cta2":"تواصل معي","hero.cvDownload":"تحميل السيرة الذاتية","hero.portfolioDownload":"تحميل البورتفليو",
+    "hero.cta1":"شاهد أعمالي","hero.cta2":"تواصل معي","hero.cvDownload":"تحميل السيرة الذاتية",
     "hero.f1":"الجنسية: مصري",
     "hero.f2":"متاح للانضمام خلال شهر",
     "hero.f3":"منفتح على الانتقال (السعودية ودول الخليج)",
@@ -821,6 +824,8 @@ const TR = {
     "train.t2.t":"التدريب على مكافحة الفساد","train.t2.o":"الأكاديمية الوطنية لمكافحة الفساد، مصر · 2022",
     "contact.tag":"التواصل","contact.title":"لنتواصل","contact.desc":"منفتح لفرص جديدة في قيادة المشتريات وسلاسل الإمداد وتخطيط المخزون، في مصر أو دوليًا.",
     "contact.loc":"القاهرة الجديدة، مصر",
+    "contact.avail":"متاح للانضمام خلال شهر · منفتح على الانتقال (السعودية ودول الخليج)",
+    "contact.cvDownload":"تحميل السيرة الذاتية","contact.portfolioDownload":"تحميل البورتفوليو (PDF)",
     "footer.text":"© <span id=\"yr2\"></span> كريم السرحه. جميع الحقوق محفوظة."
   }
 };
