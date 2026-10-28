@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Karim Elsarha — Procurement &amp; Supply Chain Leader</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,6 +37,7 @@
   <symbol id="i-handshake" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="8" width="9" height="9" rx="4.5" transform="rotate(-45 7 12.5)"/><rect x="12.5" y="8" width="9" height="9" rx="4.5" transform="rotate(-45 17 12.5)"/></symbol>
 </svg>
 
+<div id="progress" aria-hidden="true"></div>
 <header id="siteHeader">
   <div class="wrap navbar">
     <div class="brand"><span class="mark">KE</span><span data-i18n="brand">Karim Elsarha</span></div>
@@ -53,7 +54,7 @@
     </nav>
     <div class="navctas">
       <button class="lang-btn desktop" id="langBtn">العربية</button>
-      <button class="burger" id="burgerBtn" aria-label="Menu"><svg width="24" height="24"><use href="#i-menu"/></svg></button>
+      <button class="burger" id="burgerBtn" aria-label="Menu" aria-expanded="false" aria-controls="mobilePanel"><svg width="24" height="24"><use href="#i-menu"/></svg></button>
     </div>
   </div>
   <div class="mobile-panel" id="mobilePanel">
@@ -856,25 +857,30 @@ document.querySelectorAll('.navlink').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     const id = btn.getAttribute('data-target');
     const el = document.getElementById(id);
-    if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); }
-    document.getElementById('mobilePanel').classList.remove('open');
+    if(panel.classList.contains('open')) setMenu(false);
+    if(el){ el.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'start'}); }
   });
 });
 
 // Mobile burger
 const burger = document.getElementById('burgerBtn');
 const panel = document.getElementById('mobilePanel');
-burger.addEventListener('click', ()=>{
-  panel.classList.toggle('open');
-  burger.innerHTML = panel.classList.contains('open') ? '<svg width="24" height="24"><use href="#i-close"/></svg>' : '<svg width="24" height="24"><use href="#i-menu"/></svg>';
-});
+function setMenu(open){
+  panel.classList.toggle('open', open);
+  document.body.classList.toggle('menu-open', open);
+  burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  burger.innerHTML = open ? '<svg width="24" height="24"><use href="#i-close"/></svg>' : '<svg width="24" height="24"><use href="#i-menu"/></svg>';
+}
+burger.addEventListener('click', ()=> setMenu(!panel.classList.contains('open')));
+document.addEventListener('keydown', e=>{ if(e.key === 'Escape' && panel.classList.contains('open')) setMenu(false); });
+window.addEventListener('resize', ()=>{ if(window.innerWidth > 1080 && panel.classList.contains('open')) setMenu(false); });
 
 // Header scroll shadow + active link tracking
 const header = document.getElementById('siteHeader');
 const sections = ['home','about','experience','cases','skills','projects','education','contact'].map(id=>document.getElementById(id));
 const navBtns = document.querySelectorAll('.navlink[data-target]');
 function onScroll(){
-  header.classList.toggle('scrolled', window.scrollY > 30);
+  header.classList.toggle('scrolled', window.scrollY > 8);
   let current = sections[0].id;
   const y = window.scrollY + 110;
   sections.forEach(sec=>{ if(sec.offsetTop <= y) current = sec.id; });
@@ -932,6 +938,7 @@ document.querySelectorAll('a[download]').forEach(a=>{
   });
 });
 </script>
+<script src="motion.js" defer></script>
 
 </body>
 </html>

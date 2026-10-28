@@ -29,17 +29,49 @@
   a{color:inherit; text-decoration:none;}
   ul{list-style:none;}
   button{font-family:inherit; cursor:pointer;}
-  .wrap{max-width:var(--maxw); margin:0 auto; padding-inline:28px;}
-  section{scroll-margin-top:76px;}
+  .wrap{
+    max-width:var(--maxw); margin:0 auto;
+    padding-left:max(28px, env(safe-area-inset-left)); padding-right:max(28px, env(safe-area-inset-right));
+  }
+  section{scroll-margin-top:80px;}
+  body.menu-open{ overflow:hidden; }
 
   /* ---------- Reduced motion ---------- */
   @media (prefers-reduced-motion: reduce){
     *{animation:none !important; transition:none !important;}
+    html{ scroll-behavior:auto; }
+    #progress{ display:none; }
+  }
+
+  /* ---------- Motion (only runs when motion.js adds .js-motion) ---------- */
+  #progress{
+    position:fixed; top:0; left:0; right:0; height:3px; z-index:101; pointer-events:none;
+    background:var(--gold); transform:scaleX(0); transform-origin:left center;
+  }
+  html[dir="rtl"] #progress{ transform-origin:right center; }
+  .js-motion .reveal{ opacity:0; }
+  .js-motion .reveal.in{ opacity:1; animation:rise .5s cubic-bezier(.2,.7,.3,1) backwards; }
+  @keyframes rise{ from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:none; } }
+  @keyframes fadein{ from{ opacity:0; } to{ opacity:1; } }
+
+  /* Hover lift on cards; press feedback for touch */
+  .skill-card, .edu-card, .train-card, .spot, .cs-col, .tl-stats .chip{
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  @media (hover:hover){
+    .skill-card:hover, .edu-card:hover, .train-card:hover, .spot:hover, .cs-col:hover, .tl-stats .chip:hover{
+      transform:translateY(-3px); box-shadow:0 12px 26px rgba(15,44,89,.14);
+    }
+    .btn:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(0,0,0,.18); }
+  }
+  @media (hover:none){
+    .skill-card:active, .edu-card:active, .train-card:active, .spot:active, .cs-col:active,
+    .tl-stats .chip:active, .contact-item:active{ transform:scale(.98); }
   }
 
   /* ---------- Nav ---------- */
   header{
-    position:fixed; inset-inline:0; top:0; z-index:100;
+    position:fixed; inset-inline:0; top:0; z-index:100; padding-top:env(safe-area-inset-top);
     background:rgba(15,44,89,0.97);
     backdrop-filter:blur(6px);
     transition:box-shadow .25s ease, padding-block .25s ease;
@@ -81,16 +113,24 @@
   .lang-btn:hover{ background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.6); }
   .burger{
     display:none; background:none; border:none; color:var(--white); padding:6px;
+    min-width:44px; min-height:44px; align-items:center; justify-content:center; border-radius:8px;
   }
   .mobile-panel{
     display:none; flex-direction:column; gap:2px; background:var(--navy-light);
     padding:10px 28px 18px;
   }
-  .mobile-panel.open{ display:flex; }
-  .mobile-panel button.navlink{
-    text-align:start; background:none; border:none; color:#DCE3EA; font-size:15px;
-    padding:12px 4px; border-bottom:1px solid rgba(255,255,255,.08);
+  .mobile-panel.open{
+    display:flex; height:calc(100vh - 68px); height:calc(100dvh - 68px - env(safe-area-inset-top));
+    overflow-y:auto; overscroll-behavior:contain;
+    padding-bottom:calc(24px + env(safe-area-inset-bottom));
+    animation:fadein .2s ease;
   }
+  .mobile-panel button.navlink{
+    text-align:start; background:none; border:none; color:#DCE3EA; font-size:16px;
+    min-height:48px; padding:12px 4px; border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .mobile-panel .cv-download{ margin-top:auto; margin-inline-start:0; min-height:48px; justify-content:center; }
+  .mobile-panel .lang-btn{ min-height:44px; }
   .nav-download{
     display:inline-flex; align-items:center; justify-content:center; white-space:nowrap;
     padding:8px 11px; border-radius:7px; font-size:11.5px; font-weight:700;
@@ -101,7 +141,7 @@
   .portfolio-download:hover{ background:#e2c158; }
   .cv-download{ color:var(--navy); background:var(--gold); margin-inline-start:8px; }
   .cv-download:hover{ background:#e2c158; }
-  .mobile-panel .nav-download{ width:100%; justify-content:flex-start; margin-top:8px; padding:11px 12px; font-size:14px; }
+  .mobile-panel .nav-download{ width:100%; justify-content:flex-start; margin-top:8px; padding:11px 12px; font-size:15px; }
 
   @media (max-width: 1080px){
     nav.links, .navctas .lang-btn.desktop{ display:none; }
@@ -130,7 +170,9 @@
   .hero{
     background:linear-gradient(180deg, var(--navy) 0%, var(--navy) 78%, var(--navy-light) 100%);
     padding-block:150px 90px; position:relative; overflow:hidden;
+    min-height:100vh; min-height:100dvh; display:flex; align-items:center;
   }
+  .hero .wrap{ width:100%; }
   .hero .wrap{
     display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;
   }
@@ -237,12 +279,12 @@
   .cs-tab{
     display:flex; align-items:center; gap:10px; padding:12px 18px; border-radius:10px;
     background:var(--white); border:1.5px solid var(--border); color:var(--text-muted); font-weight:600; font-size:14px;
-    transition:border-color .18s ease, color .18s ease, background .18s ease;
+    min-height:44px; transition:border-color .18s ease, color .18s ease, background .18s ease;
   }
   .cs-tab svg{ width:19px; height:19px; }
   .cs-tab.active{ border-color:var(--navy); color:var(--navy); background:#EEF2F8; }
   .cs-panel{ display:none; }
-  .cs-panel.active{ display:block; }
+  .cs-panel.active{ display:block; animation:fadein .2s ease; }
   .cs-badge{
     display:inline-block; font-size:11.5px; font-weight:700; color:var(--gold);
     border:1px solid var(--gold); padding:5px 12px; border-radius:14px; margin-bottom:14px;
