@@ -1,7 +1,7 @@
 # CLAUDE.md: Karim Elsarha portfolio (GitHub Pages)
 
 Static personal portfolio at https://karimelsarha.github.io/Portfolio/ (English + Arabic).
-Owner: Karim Elsarha, Procurement & Inventory Planning Manager at SCZONE. He is job hunting
+Owner: Karim Elsarha, Inventory Planning & Control Manager at SCZONE (since Jan 2025; Procurement Section Head May 2016 - Jan 2025). He is job hunting
 (Saudi/Gulf, plus global roles), so recruiters and HR read this site fast, often on a phone.
 
 ## How to work with me
@@ -15,8 +15,11 @@ Owner: Karim Elsarha, Procurement & Inventory Planning Manager at SCZONE. He is 
 ## Hard rules about content
 - Never invent a number, date, name, project detail or claim. If something is missing, leave a
   `TODO(Karim)` comment in the code and list it for me at the end of the stage.
-- Every metric must match the current CV (`Karim_Elsarha_CV_v4_clean.docx`). If the site and the
-  CV disagree, the CV wins, except for the items under "Needs Karim's confirmation".
+- Every metric must match the current CV (Nov 2026 rebuild, published as `cv.pdf`). If the site and the
+  CV disagree, the CV wins.
+- Nov 2026: the old metrics (35%, 60%, 80%, 65%, 55%, 98%, 90%, 800+ suppliers, 19% disqualified,
+  AI-driven/AI-assisted forecasting) were removed on purpose because they had no evidence. Do not
+  bring them back. Stage 1 below is history; the site now follows the Nov 2026 CV.
 - Writing style: plain, natural, concise. No filler. Avoid em dashes used as connectors, avoid
   "ensuring ..." tails, avoid words like rigorous, in-depth, high-performance, complex, sharply,
   institutionalized, ongoing. No "not X but Y" constructions, no one-line dramatic closers.
